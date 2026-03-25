@@ -1,0 +1,20 @@
+function buildExercisePrompt(input: any): string {
+  const langName = input.language === "en" ? "English" : "Arabic";
+  const levelDesc =
+    input.level === "beginner"
+      ? "very simple, using common words"
+      : input.level === "intermediate"
+        ? "moderate difficulty, using everyday vocabulary"
+        : "challenging, using more advanced vocabulary";
+
+  let typeDescription = "";
+  if (input.type === "quiz") {
+    typeDescription = `Create ${input.count} multiple-choice quiz questions about ${input.topic}. Each question should have 4 options (A, B, C, D) with one correct answer.`;
+  } else if (input.type === "fillInBlank") {
+    typeDescription = `Create ${input.count} fill-in-the-blank exercises about ${input.topic}. Each should have a sentence with one blank and a list of word options.`;
+  } else if (input.type === "matching") {
+    typeDescription = `Create ${input.count} matching exercises about ${input.topic}. Each should have a list of words/phrases and their definitions/translations to match.`;
+  }
+
+  return `Generate ${input.count} ${input.type} exercises for young language learners (ages 5-10) learning ${langName}. Topic: ${input.topic}. Difficulty: ${levelDesc}. ${typeDescription}. Return as JSON with exercises array.`;
+}
